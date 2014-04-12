@@ -8,7 +8,7 @@ module Manhattan
     attr_accessor :output
 
     def self.all
-      ObjectSpace.each_object(self).to_a
+      ObjectSpace.each_object(self)
     end
 
     def code &block
@@ -36,10 +36,19 @@ uptime.code {
   Rye.shell :uptime
 }
 
+hostname = Manhattan::Command.new
+hostname.code {
+  Rye.shell :hostname
+}
+
 get_or_post '/' do
   uptime.execute
-  commands = Manhattan::Command.all.methods
-  @output = commands
+  hostname.execute
+  @output = []
+  ObjectSpace.each_object(Manhattan::Command) do |command|
+    @output << command.output
+  end
+  #@output = uptime.output
   haml :app
 end
 
