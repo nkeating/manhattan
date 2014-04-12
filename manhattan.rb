@@ -1,26 +1,24 @@
 #!/usr/bin/env ruby
-require 'sinatra'
 require 'rye'
+require 'sinatra'
 require 'haml'
 
 module Manhattan 
-  class Command
-    attr_accessor :output
+  class Block
+    attr_reader :output, :name
+    attr_accessor :code
+    
+    def initialize name, &block
+      @name = name
+      @code = block
+    end
 
     def self.all
       ObjectSpace.each_object(self)
     end
-
-    def code &block
-      @code = block
-    end
-
+  
     def execute
       @output = @code.call
-    end
-    
-    def outout
-      @output
     end
     
   end
@@ -31,24 +29,21 @@ def self.get_or_post(url,&block)
   post(url,&block)
 end
 
-uptime = Manhattan::Command.new
-uptime.code {
+uptime = Manhattan::Block.new('Uptime') do
   Rye.shell :uptime
-}
+end
 
-hostname = Manhattan::Command.new
-hostname.code {
+hostname = Manhattan::Block.new('Hostname') do
   Rye.shell :hostname
-}
+end
 
 get_or_post '/' do
-  uptime.execute
-  hostname.execute
   @output = []
-  ObjectSpace.each_object(Manhattan::Command) do |command|
+  ObjectSpace.each_object(Manhattan::Block) do |command|
+    command.execute
+    @output << command.name
     @output << command.output
   end
-  #@output = uptime.output
   haml :app
 end
 
