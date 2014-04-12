@@ -2,36 +2,41 @@
 require 'sinatra'
 require 'rye'
 require 'haml'
- 
-class Command
-  attr_accessor :name, :code
-  attr_reader :output
 
-  def initialize( name ) 
-    @name = name
+module Manhattan 
+  class Command
+    attr_accessor :output
+
+    def code &block
+      @code = block
+    end
+
+    def execute
+      @output = @code.call
+    end
+    
+    def outout
+      @output
+    end
   end
- 
-  def code
-    yield( @output ) 
-  end
- 
-  def execute
-  end
- 
 end
- 
-post '/' do
-  command = Command.new
-  command.name = 'uptime'
-  command.code {p "blorg"}
+
+def self.get_or_post(url,&block)
+  get(url,&block)
+  post(url,&block)
+end
+
+get_or_post '/' do
+  command = Manhattan::Command.new
+  command.code {
+    Rye.shell :ls, '-l $HOME'
+    Rye.shell :uptime
+  }
+  command.execute
   @output = command.output
   haml :app
 end
 
-get '/' do
-  haml :app
-end
- 
 __END__
 @@ app
 %html
@@ -46,5 +51,4 @@ __END__
       %p= @output
       %form{:action => '/', :method => "post"}
         %p
-          %input.pink{:type => "text", :id => "cmd_to_run", :name => "cmd_to_run"}
           %input{:type => "submit", :value => "post!"}
