@@ -7,6 +7,10 @@ module Manhattan
   class Command
     attr_accessor :output
 
+    def self.all
+      ObjectSpace.each_object(self).to_a
+    end
+
     def code &block
       @code = block
     end
@@ -18,6 +22,7 @@ module Manhattan
     def outout
       @output
     end
+    
   end
 end
 
@@ -26,14 +31,15 @@ def self.get_or_post(url,&block)
   post(url,&block)
 end
 
+uptime = Manhattan::Command.new
+uptime.code {
+  Rye.shell :uptime
+}
+
 get_or_post '/' do
-  command = Manhattan::Command.new
-  command.code {
-    Rye.shell :ls, '-l $HOME'
-    Rye.shell :uptime
-  }
-  command.execute
-  @output = command.output
+  uptime.execute
+  commands = Manhattan::Command.all.methods
+  @output = commands
   haml :app
 end
 
@@ -42,13 +48,9 @@ __END__
 %html
   %head
     %title Manhattan
-    %script{:type => 'text/javascript', :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'}
-    :javascript
-      });
   %body
-    #footer
-      %h2 Output:
-      %p= @output
-      %form{:action => '/', :method => "post"}
-        %p
-          %input{:type => "submit", :value => "post!"}
+    %h2 Output:
+    %p= @output
+    %form{:action => '/', :method => "post"}
+      %p
+        %input{:type => "submit", :value => "post!"}
