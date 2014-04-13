@@ -19,7 +19,13 @@ module Manhattan
     end
   
     def execute
+      trace = TracePoint.new(:call) do |t|
+        puts "#{t.defined_class}.#{t.method_id}"
+        puts "#{t.path}:#{t.lineno}"
+      end
+      trace.enable
       @output = @block.call
+      trace.disable
       @status = 'fresh'
     end
  
