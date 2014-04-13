@@ -5,6 +5,8 @@ GEM
       highline (>= 1.5.0)
     docile (1.1.3)
     drydock (0.6.9)
+    file-tail (1.0.12)
+      tins (~> 0.5)
     haml (4.0.5)
       tilt
     highline (1.6.21)
@@ -14,6 +16,11 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    ruby2ruby (2.0.8)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.0)
+    ruby_parser (3.5.0)
+      sexp_processor (~> 4.1)
     rye (0.9.12)
       annoy
       docile (>= 1.0.1)
@@ -21,15 +28,22 @@ GEM
       net-scp (>= 1.0.2)
       net-ssh (>= 2.0.13)
       sysinfo (>= 0.8.1)
+    sexp_processor (4.4.3)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    sourcify (0.5.0)
+      file-tail (>= 1.0.5)
+      ruby2ruby (>= 1.2.5)
+      ruby_parser (>= 2.0.5)
+      sexp_processor (>= 3.0.5)
     storable (0.8.9)
     sysinfo (0.8.1)
       drydock
       storable
     tilt (1.4.1)
+    tins (0.13.2)
 
 PLATFORMS
   ruby
@@ -38,3 +52,4 @@ DEPENDENCIES
   haml
   rye
   sinatra
+  sourcify

@@ -2,6 +2,7 @@
 require 'rye'
 require 'sinatra'
 require 'haml'
+require 'sourcify'
 
 module Manhattan 
   class Block
@@ -10,7 +11,7 @@ module Manhattan
     
     def initialize name, &block
       @name = name
-      @code = block
+      @block = block
     end
 
     def self.all
@@ -18,9 +19,12 @@ module Manhattan
     end
   
     def execute
-      @output = @code.call
+      @output = @block.call
     end
-    
+
+    def code
+      @code = @block.to_raw_source(:strip_enclosure => true)
+    end
   end
 end
 
@@ -37,14 +41,15 @@ hostname = Manhattan::Block.new('Hostname') do
   Rye.shell :hostname
 end
 
+date = Manhattan::Block.new('Date') do
+  Rye.shell :date
+end
+
 get_or_post '/' do
-  @output = []
   ObjectSpace.each_object(Manhattan::Block) do |command|
     command.execute
-    @output << command.name
-    @output << command.output
   end
-  haml :app
+  erb :index
 end
 
 __END__

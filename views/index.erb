@@ -1,0 +1,33 @@
+<html>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+  <div class="panel panel-default">
+    <% ObjectSpace.each_object(Manhattan::Block) do |block| %>
+      <div class="panel-heading row vertical-align: top;">
+        <div class="col-md-3">
+          <h4>
+            <%="#{block.name}"%>
+          </h4>
+        </div>
+        <div class="col-md-3 col-md-offset-9">
+          <p class="small text-muted">
+            code:<br>
+            <%="#{block.code}"%>
+          </code>
+        </div>
+      </div>
+      <div class="panel-body row">
+        <div class="col-md-9">
+          <%="#{block.output}"%>
+        </div>
+        <div class="col-md-3">
+          <form>
+            <button type="submit" class="btn">
+              Run <%="#{block.name}"%>
+            </button>
+          </form>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</html>
