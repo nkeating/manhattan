@@ -6,7 +6,7 @@ require 'sourcify'
 
 module Manhattan 
   class Block
-    attr_reader :output, :name
+    attr_reader :output, :name, :status
     attr_accessor :code
     
     def initialize name, &block
@@ -20,6 +20,11 @@ module Manhattan
   
     def execute
       @output = @block.call
+      @status = 'fresh'
+    end
+ 
+    def expire
+      @status = 'stale'
     end
 
     def code
@@ -47,19 +52,10 @@ end
 
 get_or_post '/' do
   ObjectSpace.each_object(Manhattan::Block) do |command|
-    command.execute
+    command.expire
+    if params[:run] == command.name
+      command.execute
+    end
   end
   erb :index
 end
-
-__END__
-@@ app
-%html
-  %head
-    %title Manhattan
-  %body
-    %h2 Output:
-    %p= @output
-    %form{:action => '/', :method => "post"}
-      %p
-        %input{:type => "submit", :value => "post!"}
