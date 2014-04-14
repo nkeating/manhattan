@@ -3,10 +3,11 @@ require 'sinatra'
 require 'haml'
 require 'sourcify'
 require 'thin'
+require 'require_all'
 
 module Manhattan 
   class Block
-    attr_reader :output, :name, :status
+    attr_reader :output, :name, :status, :trace
     attr_accessor :code
     
     def initialize name, &block
@@ -39,17 +40,25 @@ module Manhattan
     end
   end
 end
+
 module Manhattan
   class App < ::Sinatra::Base
     set server: 'thin', connections: []
-    get '/' do
-    ObjectSpace.each_object(Manhattan::Block) do |command|
-      command.expire
-      if params[:run] == command.name
-        command.execute
-      end
+
+    #require_all '/Users/nikkeating/manhattan/blocks/*.rb'
+    #require '/Users/nikkeating/manhattan/blocks/date.manhattan.rb'
+   
+    hostname = Manhattan::Block.new('Hostname') do
+      Rye.shell :hostname
     end
-    erb :index
+    get '/' do
+      ObjectSpace.each_object(Manhattan::Block) do |command|
+        command.expire
+        if params[:run] == command.name
+          command.execute
+        end
+      end
+      erb :index
     end
   end
 end
