@@ -41,24 +41,24 @@ module Manhattan
   end
 end
 
-module Manhattan
-  class App < ::Sinatra::Base
-    set server: 'thin', connections: []
-
-    #require_all '/Users/nikkeating/manhattan/blocks/*.rb'
-    #require '/Users/nikkeating/manhattan/blocks/date.manhattan.rb'
-   
-    hostname = Manhattan::Block.new('Hostname') do
-      Rye.shell :hostname
-    end
-    get '/' do
-      ObjectSpace.each_object(Manhattan::Block) do |command|
-        command.expire
-        if params[:run] == command.name
-          command.execute
-        end
+class Manhattan::App < ::Sinatra::Application
+  require_all 'blocks/*.rb'
+  get '/' do
+    ObjectSpace.each_object(Manhattan::Block) do |command|
+      command.expire
+      if params[:run] == command.name
+        command.execute
       end
-      erb :index
     end
+    erb :index
+  end
+
+  get '/refresh' do
+    #code goes here to free all Blocks.code
+    #ObjectSpace.each_object(Manhattan::Block) do |command|
+      #require_all 'blocks/*.rb'
+    #end
+    load_all 'blocks/*.rb'
+    redirect '/'
   end
 end

@@ -1,4 +1,4 @@
-foobar = Manhattan::Block.new('Foo') do
+Foo = Manhattan::Block.new('Foo') do
   foo='hello'
   bar='world'
   c='cruel'
