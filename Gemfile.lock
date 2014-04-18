@@ -24,6 +24,7 @@ GEM
       sexp_processor (~> 4.0)
     ruby_parser (3.5.0)
       sexp_processor (~> 4.1)
+    rugged (0.19.0)
     rye (0.9.12)
       annoy
       docile (>= 1.0.1)
@@ -58,6 +59,7 @@ PLATFORMS
 DEPENDENCIES
   haml
   require_all
+  rugged
   rye
   sinatra
   sourcify

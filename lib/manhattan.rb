@@ -55,10 +55,11 @@ class Manhattan::App < ::Sinatra::Application
 
   get '/refresh' do
     #code goes here to free all Blocks.code
-    #ObjectSpace.each_object(Manhattan::Block) do |command|
+    ObjectSpace.each_object(Manhattan::Block) do |command|
       #require_all 'blocks/*.rb'
-    #end
-    load_all 'blocks/*.rb'
+      #Object.send(:remove_const, command.name.to_sym)
+    end
+    #load_all 'blocks/*.rb'
     redirect '/'
   end
 end

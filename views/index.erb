@@ -5,11 +5,17 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 </head>
   <div class="row">
-    <form method="get" action="/refresh">
+    <div class="col-md-9">
+      Manhattan
+      <%= @status %>
+    </div>
+    <div class="col-md-3">
+      <form method="get" action="/refresh">
         <button type="submit" class="btn pull-right">
           Refresh
         </button>
-    </form>
+      </form>
+    </div>
   </div>
   <div class="panel panel-default">
     <% ObjectSpace.each_object(Manhattan::Block) do |block| %>
