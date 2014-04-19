@@ -1,7 +1,7 @@
 manhattan
 =========
 
-Run configurable ruby code chunks via the browser 
+Run configurable ruby code locally via the browser 
 
 Run via:
 ```

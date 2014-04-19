@@ -1,12 +1,13 @@
 <html>
 <head>
+<title>::Manhattan::app</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 </head>
   <div class="row">
     <div class="col-md-9">
-      Manhattan
+      <h1>Manhattan</h1>
       <%= @status %>
     </div>
     <div class="col-md-3">
@@ -18,7 +19,7 @@
     </div>
   </div>
   <div class="panel panel-default">
-    <% ObjectSpace.each_object(Manhattan::Block) do |block| %>
+    <% Manhattan::Block.all.each do |block| %>
       <div class="row vertical-align: top;">
         <div class="col-md-3">
           <h4>
@@ -33,7 +34,7 @@
       </div>
       <div class="row">
         <div class="col-md-9">
-        <% if block.status == 'stale' %>
+        <% if block.output_status == 'stale' %>
           <p class="text-muted small">
         <% end %>
           <%="#{block.output}"%>

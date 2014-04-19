@@ -1,4 +1,4 @@
-require 'rubygems'
+#\ -p 10021
 require 'bundler'
 Bundler.require
 require './lib/manhattan'
