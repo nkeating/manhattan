@@ -1,10 +1,10 @@
 class Manhattan::App < ::Sinatra::Application
-  #require_all 'blocks/*.rb'
-  require './blocks/hostname.manhattan.rb'
-  require './blocks/uptime.manhattan.rb'
-  require './blocks/date.manhattan.rb'
+  Repo = Manhattan::Repo.new
+  require_all "#{Repo.path}/*.rb"
   get '/' do
     @status =  []
+    @status << 'Repo.path:'
+    @status << Repo.path + '<br>'
     @status << Manhattan::Block.all.count
     Manhattan::Block.all.each do |command|
       @status << command.name
@@ -18,15 +18,19 @@ class Manhattan::App < ::Sinatra::Application
 
   get '/refresh' do
     refresh_status = []
+    clear_blocks
+    load_blocks
+    redirect '/'
+  end
+  
+  def clear_blocks
     Manhattan::Block.all.delete_if {|obj| obj.name == 'Hostname'}
     Manhattan::Block.all.delete_if {|obj| obj.name == 'Uptime'}
     Manhattan::Block.all.delete_if {|obj| obj.name == 'Date'}
-    #Manhattan::Block.all.each do |command|
-    #  command.remove_instance
-    #end
-    load './blocks/hostname.manhattan.rb'
-    load './blocks/uptime.manhattan.rb'
-    load './blocks/date.manhattan.rb'
-    redirect '/'
   end
+
+  def load_blocks
+    load_all "#{Repo.path}/*.rb"
+  end
+
 end
