@@ -39,6 +39,7 @@ GEM
       net-scp (>= 1.0.2)
       net-ssh (>= 2.0.13)
       sysinfo (>= 0.8.1)
+    sass (3.3.5)
     sexp_processor (4.4.3)
     sinatra (1.4.5)
       rack (~> 1.4)
@@ -50,6 +51,8 @@ GEM
       ruby_parser (>= 2.0.5)
       sexp_processor (>= 3.0.5)
     storable (0.8.9)
+    susy (2.1.1)
+      sass (~> 3.3.0)
     sysinfo (0.8.1)
       drydock
       storable
@@ -71,4 +74,5 @@ DEPENDENCIES
   rye
   sinatra
   sourcify
+  susy
   thin

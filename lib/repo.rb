@@ -8,10 +8,11 @@ class Manhattan::Repo
     Dir.mkdir(@manhattan_dir) unless File.directory?(@manhattan_dir)
     @repo_dir = @manhattan_dir + 'repo/'
     if File.directory?(@repo_dir)
-      Rugged::Repository.discover(@repo_dir)
+      @repo = Rugged::Repository.discover(@repo_dir)
     else
-      Rugged::Repository.clone_at(repo_url, @repo_dir) 
+      @repo = Rugged::Repository.clone_at(repo_url, @repo_dir) 
     end
+    @remote = Rugged::Remote.lookup(@repo, 'origin')
   end
  
   def path
@@ -19,6 +20,10 @@ class Manhattan::Repo
   end
  
   def check_for_update
+  end
+
+  def origin
+    @remote.url
   end
  
 end

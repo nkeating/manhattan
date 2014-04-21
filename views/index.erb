@@ -1,42 +1,37 @@
 <html>
-<head>
-<title>::Manhattan::app</title>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-</head>
-  <div class="row">
-    <div class="col-md-9">
-      <h1>Manhattan</h1>
+  <head>
+    <meta charset="utf-8">
+    <title>::Manhattan</title>
+    <link rel="stylesheet" href='css/readable-bootstrap.css'>
+  </head>
+  <body>
+    <div class="row">
+    <div class="page-header">
+      <h1 id="page-header">Manhattan</h1>
+    </div>
+    <div>
       <%= @status %>
     </div>
-    <div class="col-md-3">
-      <form method="get" action="/refresh">
-        <button type="submit" class="btn pull-right">
-          Refresh
-        </button>
-      </form>
     </div>
-  </div>
-  <div class="panel panel-default">
-    <% Manhattan::Block.all.each do |block| %>
-      <div class="row vertical-align: top;">
-        <div class="col-md-3">
-          <h4>
-            <%="#{block.name}"%>
-          </h4>
-        </div>
-        <div class="col-md-3 col-md-offset-9">
-          <p class="small text-muted">
+    <div class="panel panel-default">
+      <% Manhattan::Block.all.each do |block| %>
+        <div class="row vertical-align: top;">
+          <div class="col-md-3">
+            <h4>
+              <%="#{block.name}"%>
+            </h4>
+          </div>
+          <div class="col-md-3 col-md-offset-9">
+            <p class="small text-muted">
             <%="#{block.code}"%>
           </code>
         </div>
       </div>
       <div class="row">
         <div class="col-md-9">
-        <% if block.output_status == 'stale' %>
-          <p class="text-muted small">
-        <% end %>
+          <% if block.output_status == 'stale' %>
+            <p class="text-muted small">
+          <% end %>
           <%="#{block.output}"%>
         </div>
         <div class="col-md-3">
@@ -44,10 +39,11 @@
             <input type="hidden" name="run" value="<%="#{block.name}"%>">
             <button type="submit" class="btn">
               Run <%="#{block.name}"%>
-            </button>
-          </form>
-        </div>
+          </button>
+        </form>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+</div>
+</body>
 </html>

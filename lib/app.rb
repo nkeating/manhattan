@@ -4,7 +4,9 @@ class Manhattan::App < ::Sinatra::Application
   get '/' do
     @status =  []
     @status << 'Repo.path:'
-    @status << Repo.path + '<br>'
+    @status << Repo.path
+    @status << 'Origin:'
+    @status << Repo.origin.to_s
     @status << Manhattan::Block.all.count
     Manhattan::Block.all.each do |command|
       @status << command.name
