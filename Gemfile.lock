@@ -4,27 +4,23 @@ GEM
     annoy (0.5.6)
       highline (>= 1.5.0)
     daemons (1.1.9)
-    diff-lcs (1.2.5)
     docile (1.1.3)
     drydock (0.6.9)
     eventmachine (1.0.3)
     file-tail (1.0.12)
       tins (~> 0.5)
-    grit (2.5.0)
-      diff-lcs (~> 1.1)
-      mime-types (~> 1.15)
-      posix-spawn (~> 0.3.6)
     haml (4.0.5)
       tilt
     highline (1.6.21)
-    mime-types (1.25.1)
+    jsmin (1.0.1)
     net-scp (1.2.0)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
-    posix-spawn (0.3.8)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
     require_all (1.3.2)
     ruby2ruby (2.0.8)
       ruby_parser (~> 3.1)
@@ -45,6 +41,11 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    sinatra-assetpack (0.3.2)
+      jsmin
+      rack-test
+      sinatra
+      tilt (>= 1.3.0, < 2.0)
     sourcify (0.5.0)
       file-tail (>= 1.0.5)
       ruby2ruby (>= 1.2.5)
@@ -67,12 +68,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  grit
   haml
   require_all
   rugged
   rye
+  sass
   sinatra
+  sinatra-assetpack
   sourcify
   susy
   thin

@@ -1,5 +1,6 @@
 require 'rye'
 require 'sinatra'
+require 'sinatra/assetpack'
 require 'haml'
 require 'sourcify'
 require 'thin'

@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'sinatra-assetpack'
 gem 'rye'
 gem 'haml'
 gem 'sourcify'
 gem 'thin'
 gem 'require_all'
-gem 'grit'
 gem 'rugged'
 gem 'susy'
+gem 'sass'

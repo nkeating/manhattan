@@ -3,47 +3,48 @@
     <meta charset="utf-8">
     <title>::Manhattan</title>
     <link rel="stylesheet" href='css/readable-bootstrap.css'>
+    <%= css :application %>
   </head>
   <body>
-    <div class="row">
-    <div class="page-header">
-      <h1 id="page-header">Manhattan</h1>
-    </div>
-    <div>
-      <%= @status %>
-    </div>
-    </div>
-    <div class="panel panel-default">
-      <% Manhattan::Block.all.each do |block| %>
-        <div class="row vertical-align: top;">
-          <div class="col-md-3">
-            <h4>
-              <%="#{block.name}"%>
-            </h4>
+    <div id="page-wrap">
+      <div id="inside">
+
+        <div id="header">
+          <div class="banner">
+            <h1 id="bannertext">Manhattan</h1>
           </div>
-          <div class="col-md-3 col-md-offset-9">
-            <p class="small text-muted">
-            <%="#{block.code}"%>
-          </code>
+          <div class="statusarea">
+            <%= @status %>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-9">
-          <% if block.output_status == 'stale' %>
-            <p class="text-muted small">
-          <% end %>
-          <%="#{block.output}"%>
+
+        <div id="main-content">
+          <div class="blockarea">
+            <% Manhattan::Block.all.each do |block| %>
+            <div class="blockname">
+              <h4>
+                <%="#{block.name}"%>
+              </h4>
+            </div>
+            <div class="blockcode">
+              <%="#{block.code}"%>
+            </div>
+            <div class="blockoutput">
+              <%="#{block.output}"%>
+            </div>
+            <div class="blockrunbutton">
+              <form method="get" action="/">
+                <input type="hidden" name="run" value="<%="#{block.name}"%>">
+                <button type="submit" class="btn">
+                  Run <%="#{block.name}"%>
+                </button>
+              </form>
+            </div>
+            <% end %>
+          </div>
         </div>
-        <div class="col-md-3">
-          <form method="get" action="/">
-            <input type="hidden" name="run" value="<%="#{block.name}"%>">
-            <button type="submit" class="btn">
-              Run <%="#{block.name}"%>
-          </button>
-        </form>
-      </div>
+
     </div>
-  <% end %>
-</div>
+  </div>
 </body>
 </html>

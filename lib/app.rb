@@ -1,6 +1,16 @@
 class Manhattan::App < ::Sinatra::Application
+
+  register Sinatra::AssetPack
+  assets do
+    # read on
+    css :application, [
+      '/css/manhattan.sass'
+    ]
+  end
+
   Repo = Manhattan::Repo.new
   require_all "#{Repo.path}/*.rb"
+
   get '/' do
     @status =  []
     @status << 'Repo.path:'
@@ -23,6 +33,10 @@ class Manhattan::App < ::Sinatra::Application
     clear_blocks
     load_blocks
     redirect '/'
+  end
+
+  get '/styles.css' do
+    scss 'scss/manhattan.scss'
   end
   
   def clear_blocks
