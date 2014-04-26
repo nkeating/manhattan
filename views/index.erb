@@ -2,47 +2,51 @@
   <head>
     <meta charset="utf-8">
     <title>::Manhattan</title>
-    <link rel="stylesheet" href='css/readable-bootstrap.css'>
-    <%= css :application %>
+    <link rel="stylesheet" href='manhattan.css'>
   </head>
   <body>
     <div id="page-wrap">
       <div id="inside">
 
-        <div id="header">
-          <div class="banner">
-            <h1 id="bannertext">Manhattan</h1>
+        <div class="header">
+          <div id="banner">
+            <h1>Manhattan</h1>
           </div>
-          <div class="statusarea">
-            <%= @status %>
+          <div id="statusarea">
+            <p><%= @status %>
+            <form method="get" action="/refresh">
+            <button type="submit" class="btn">
+              Refresh
+            </button>
+            </form>
           </div>
         </div>
 
-        <div id="main-content">
           <div class="blockarea">
             <% Manhattan::Block.all.each do |block| %>
-            <div class="blockname">
-              <h4>
-                <%="#{block.name}"%>
-              </h4>
-            </div>
-            <div class="blockcode">
-              <%="#{block.code}"%>
-            </div>
-            <div class="blockoutput">
-              <%="#{block.output}"%>
-            </div>
-            <div class="blockrunbutton">
-              <form method="get" action="/">
-                <input type="hidden" name="run" value="<%="#{block.name}"%>">
-                <button type="submit" class="btn">
-                  Run <%="#{block.name}"%>
-                </button>
-              </form>
+              <div class="block">
+                <div class="blockname">
+                  <h4>
+                    <%="#{block.name}"%>
+                  </h4>
+                </div>
+                <div class="blockcode">
+                  <p>Code: <pre><%="#{block.code}"%></pre>
+                </div>
+                <div class="blockoutput">
+                  <%="#{block.output}"%>
+                </div>
+                <div class="blockrunbutton">
+                  <form method="get" action="/">
+                    <input type="hidden" name="run" value="<%="#{block.name}"%>">
+                    <button type="submit" class="btn">
+                      Run <%="#{block.name}"%>
+                  </button>
+                </form>
+              </div>
             </div>
             <% end %>
           </div>
-        </div>
 
     </div>
   </div>
