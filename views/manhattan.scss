@@ -1,0 +1,81 @@
+//get the Lora font
+@import url("//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic");
+
+$font-stack:  "Lora", Georgia, "Times New Roman", Times, serif;
+$primary-color: #333;
+
+html,
+body,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+
+#page-wrap {
+  background: white;
+  min-width: 780px;
+  max-width: 1260px;
+  margin: 10px auto;
+  }
+  #page-wrap #inside {
+    margin: 10px 10px 0px 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+ 
+.header {
+  padding-bottom: 50px;
+  height: 10%;
+  overflow:hidden;
+}
+
+#banner {
+  color: #733;
+  float: left;
+  width: 75%;
+  display: table-cell;
+}
+
+#statusarea {
+  color: #733;
+  float: right;
+  width: 25%;
+  display: table-cell;
+}
+
+.blockarea {
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: block;
+}
+
+.block {
+  float: left;
+  overflow: hidden;
+  width: 100%;
+  height: 20%;
+}
+
+.blockname {
+  width: 100%;
+  float: left;
+}
+
+.blockcode {
+  float: right;
+}
+
+.blockoutput {
+  width: 100%;
+  float: left;
+}
+
+.blockrunbutton {
+  float: right;
+}
