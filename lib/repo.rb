@@ -25,5 +25,17 @@ class Manhattan::Repo
   def origin
     @remote.url
   end
+
+  def last_commit
+    @ref = @repo.head
+    "#{@ref.target.time} #{@ref.target.tree_id}: #{@ref.target.message} - #{@ref.target.author[:name]}"
+  end
+
+  def remote_head
+   @remote.connect(:fetch) do |r|
+     @thingie = r.class  #=> true
+   end
+   @thingie
+  end
  
 end

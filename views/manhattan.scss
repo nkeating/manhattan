@@ -3,6 +3,7 @@
 
 $font-stack:  "Lora", Georgia, "Times New Roman", Times, serif;
 $primary-color: #333;
+$neutral-bg-color: #F5F1DE;
 
 html,
 body,
@@ -15,10 +16,10 @@ ol {
 body {
   font: 100% $font-stack;
   color: $primary-color;
+  background-color: $neutral-bg-color;
 }
 
 #page-wrap {
-  background: white;
   min-width: 780px;
   max-width: 1260px;
   margin: 10px auto;
@@ -31,21 +32,23 @@ body {
  
 .header {
   padding-bottom: 50px;
-  height: 10%;
+  height: 20%;
   overflow:hidden;
+  font-variant: small-caps;
 }
 
 #banner {
   color: #733;
   float: left;
-  width: 75%;
+  width: 60%;
   display: table-cell;
 }
 
 #statusarea {
+  font-size: small;
   color: #733;
   float: right;
-  width: 25%;
+  width: 40%;
   display: table-cell;
 }
 
